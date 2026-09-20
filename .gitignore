@@ -1,0 +1,27 @@
+# Python caches and bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments and local tooling
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Generated experiment output
+artifacts/*
+!artifacts/experiment_summary.md
+
+# Logs and OS/editor files
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
