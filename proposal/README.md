@@ -22,5 +22,7 @@ For the booklet submission, use `one_page_pitch.pdf`. Its source is
 `one_page_pitch.tex` and it contains the five required sections directly on a
 single page.
 
-The figures in `img/` are generated experiment artifacts. They contain only
-synthetic simulation results and do not represent K PLUS customer data.
+The trajectory and frontier figures in `img/` are generated experiment
+artifacts containing only synthetic simulation results. The
+`logical_workflow.png` figure is the conceptual Meta-RL system flowchart.
+None of the figures represents K PLUS customer data.

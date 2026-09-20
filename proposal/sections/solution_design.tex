@@ -31,6 +31,13 @@ a_t\sim\pi_\phi(a_t\mid s_t,z_t).
 \]
 The task label is never passed to the recurrent policy. This is the proposed user-adaptation mechanism. The implementation is intentionally a small policy-gradient prototype; a recurrent PPO implementation is an optional extension, not a requirement for claiming a result.
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{logical_workflow.png}
+\caption{Logical flowchart MetaRL for adaptive financial goal allocation.}
+\label{fig:logical-flowchart}
+\end{figure*}
+
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=\columnwidth]{trajectory_simulation.png}}
 \caption{Example matched cash-flow trajectories from the controlled simulator.}
