@@ -25,3 +25,12 @@ artifacts/*
 Thumbs.db
 .idea/
 .vscode/
+
+# LaTeX build products (keep proposal sources and final PDF if generated)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz

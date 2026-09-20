@@ -41,6 +41,8 @@ runtime grows substantially.
 - `run_tests.py`: test and artifact runner
 - `tests/`: unit and integration checks
 - `EXPERIMENT_PROPOSAL.md`: mathematical formulation and research protocol
+- `ONE_PAGE_PITCH_PROPOSAL.md`: the five required booklet sections in pitch form
+- `proposal/`: IEEE-style LaTeX proposal adapted from the public hackathon template
 - `ref/`: research papers and source materials used by the proposal
 
 The main research decision is whether Meta-RL improves held-out adaptation

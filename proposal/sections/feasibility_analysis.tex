@@ -1,0 +1,29 @@
+\section{Feasibility Analysis}\label{sec:feasibility_analysis}
+
+\subsection{Technical Feasibility}
+The environment has a finite horizon, discrete action grid, finite-support transitions, and three declared task types. These properties make exact DP feasible on a laptop and provide an oracle for learned policies. The current implementation uses Python and NumPy only. The main engineering risks are state-grid growth, unstable policy-gradient updates, and simulator misspecification; all can be exposed by grid checks, multiple seeds, and distribution-shift tests.
+
+\subsection{Experimental Protocol}
+Policies are trained only on declared training tasks. Evaluation uses unseen random seeds, interpolation task types, and at least one increased-shock condition. Every policy receives the same pre-generated salary and expense paths. Results are reported by task type, not only as a population average. Primary metrics are expected total reward, goal attainment, reserve attainment, any-shortfall probability, conditional shortfall amount, terminal liquidity, adaptation gain after the first two cycles, and compute cost.
+
+\subsection{Risk Assessment}
+\begin{table}[htbp]
+\caption{Research and product risks with mitigations.}
+\centering\scriptsize
+\begin{tabular}{p{1.55cm}p{2.1cm}p{3.15cm}}
+\toprule
+\textbf{Risk} & \textbf{Why it matters} & \textbf{Mitigation}\\
+\midrule
+Simulator bias & A policy may optimize artificial cash flows. & Publish parameters; vary shocks, weights, and reserve friction; report conditional claims.\\
+Fake adaptation & A recurrent network may use capacity without identifying task dynamics. & Compare Bayesian DP, pooled RL, no-history ablations, and task-type oracle.\\
+Reward hacking & Reserve preservation may starve liquid spending. & Report all component metrics and inspect action traces.\\
+Grid artifacts & Coarse DP may create a false optimum. & Refine balance and action grids; report stability.\\
+Preference sensitivity & Weights determine the goal/liquidity trade-off. & Treat weights as explicit inputs and run sensitivity analysis.\\
+Product overclaim & Simulation does not prove user impact. & Keep the feature optional; exclude real-money movement and production claims.\\
+\bottomrule
+\end{tabular}
+\label{tab:risks}
+\end{table}
+
+\subsection{Business and Ethical Feasibility}
+The proposed intervention fits an existing payday or goal-planning moment and can be prototyped without privileged banking access. A user retains control over the transfer decision. The system should explain uncertainty and show counterfactuals rather than present a guaranteed recommendation. Real customer deployment would require product research, consent, privacy controls, suitability review, and calibration with aggregate data; none is claimed here.

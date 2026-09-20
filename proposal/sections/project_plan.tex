@@ -1,0 +1,36 @@
+\section{Project Plan}\label{sec:project_plan}
+
+\subsection{Implementation Phases}
+\begin{itemize}[noitemsep,topsep=2pt]
+    \item \textbf{Phase 1 --- Environment (Days 1--3):} implement seeded transitions, feasibility checks, reward accounting, and hand-verified two-cycle cases.
+    \item \textbf{Phase 2 --- Model-Based Baselines (Days 4--6):} add fixed rules, exact DP, grid refinement, and Bayesian posterior updates.
+    \item \textbf{Phase 3 --- Learned Policies (Days 7--10):} train pooled Q-learning and the recurrent Meta-RL prototype with task-randomized episodes.
+    \item \textbf{Phase 4 --- Evaluation (Days 11--13):} generate matched held-out paths, run task shifts and ablations, and compute paired bootstrap intervals.
+    \item \textbf{Phase 5 --- Pitch and Review (Days 14--15):} produce the policy comparison, explainability example, scope statement, and final Track 2 proposal.
+\end{itemize}
+
+\subsection{Timeline}
+\begin{figure}[htbp]
+\centerline{\resizebox{\columnwidth}{!}{
+\begin{ganttchart}[hgrid,vgrid,x unit=0.43cm,y unit chart=0.38cm,
+    bar height=0.55,group height=0.45,bar label font=\scriptsize,
+    group label font=\scriptsize]{1}{15}
+    \gantttitle{Days}{15}\\
+    \gantttitlelist{1,...,15}{1}\\
+    \ganttgroup{Environment}{1}{3}\\
+    \ganttbar{Transitions and tests}{1}{3}\\
+    \ganttgroup{DP baselines}{4}{6}\\
+    \ganttbar{DP and Bayesian DP}{4}{6}\\
+    \ganttgroup{RL methods}{7}{10}\\
+    \ganttbar{Pooled Q and Meta-RL}{7}{10}\\
+    \ganttgroup{Evaluation}{11}{13}\\
+    \ganttbar{Held-out paths and ablations}{11}{13}\\
+    \ganttgroup{Pitch}{14}{15}\\
+    \ganttbar{Analysis and proposal}{14}{15}
+\end{ganttchart}}}
+\caption{Fifteen-day implementation and evaluation plan.}
+\label{fig:gantt}
+\end{figure}
+
+\subsection{Deliverables}
+The deliverables are the seeded simulator, unit tests, policy implementations, reproducible evaluation artifacts, a short policy explanation, and this proposal. The experiment can be demonstrated without a frontend or a banking API.

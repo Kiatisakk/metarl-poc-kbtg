@@ -1,0 +1,18 @@
+\section{Executive Summary: One-Page Pitch}
+
+\subsection{Problem Statement}
+First Jobbers often receive a regular salary but have little margin for unexpected expenses. At each payday they must decide how much surplus to keep liquid, place in an emergency buffer, or allocate to a personal goal. The decision changes the cash available in later cycles. A fixed percentage rule is unable to account for a user's changing shortfall risk. The supplied references support buffer-versus-consumption trade-offs and sequential goal allocation, but do not establish the prevalence of this problem among K PLUS customers. That prevalence remains a validation hypothesis.
+
+\subsection{Proposed Solution}
+K PLUS Adaptive Goal Allocation is an optional payday recommendation. It estimates near-term cash-flow uncertainty from observed history and recommends a feasible pair $(e_t,q_t)$: an emergency-buffer allocation and a goal allocation. The remaining surplus stays liquid. The explanation exposes the trade-off, for example, how allocating more to the goal changes the chance of an essential-expense shortfall. The prototype evaluates the policy in a controlled simulator; it does not move or lock real funds.
+
+\subsection{Target Users}
+The initial segment is salaried K PLUS users aged 22--30 with a small liquid buffer and one short-term savings goal. Users receive a decision that accounts for future uncertainty and preserves control over the final transfer. K PLUS gains a testable form of personalized financial decision support that can be evaluated before any production integration. Retention, deposits, debt reduction, and customer impact are not claimed by this proposal.
+
+\subsection{Value Proposition}
+\textbf{For First Jobbers:} The recommendation makes the reserve-versus-goal trade-off visible at the payday moment. It can reduce avoidable essential-expense shortfalls in the simulator while preserving progress toward a user-selected goal. Users can inspect a counterfactual allocation and accept, edit, or reject the suggestion.
+
+\textbf{For K PLUS/KBank:} The concept creates a small, testable decision-support experience around an existing salary and savings context. It provides an auditable way to evaluate personalization and trust before requesting production data or automatic transfers. Business outcomes such as retention, deposits, or credit risk are hypotheses for later validation, not results of this proposal.
+
+\subsection{Track Perspective}
+Track 2 is demonstrated through an explicit MDP, a DP oracle, posterior-based adaptation, and a controlled Meta-RL comparison. Meta-RL is a falsifiable candidate method. If Bayesian DP performs equally well, the simpler method is the appropriate result.

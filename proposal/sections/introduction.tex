@@ -1,0 +1,16 @@
+\section{Introduction}\label{sec:introduction}
+
+Financial goal management is sequential: an allocation today changes the liquidity and attainable goals available at the next payday. A First Jobber may have stable salary income but still face a low-probability expense shock. Allocating too much to a goal can create a shortfall; allocating too little can make a goal unreachable. Buffer behavior under uncertain income is a classic dynamic consumption-saving problem~\cite{deaton}, while goals-based wealth management uses dynamic optimization to trade off competing future goals~\cite{dasdp}.
+
+Recent work applies Meta-RL to goals-based wealth management (GBWM) by pre-training policies over many multi-year investment problems~\cite{dasmeta}. That work chooses investment portfolios and whether to fulfil scheduled goals, and reports zero-shot inference for new problem parameters. Our proposal studies a different, smaller decision: how to allocate payday surplus between an emergency buffer, one accumulating goal, and liquid cash. The user task type is hidden at evaluation time and must be inferred from observed cash-flow history. There is no portfolio optimization or real banking data.
+
+The proposal makes three deliberate choices. First, DP is implemented before model-free learning because the horizon and state grid are small. Second, Bayesian DP is a strong adaptation baseline because it explicitly represents uncertainty about the hidden cash-flow dynamics. Third, the recurrent Meta-RL policy is included only to test whether learned history compression provides value beyond that baseline. This ordering prevents algorithmic complexity from replacing a clear problem definition.
+
+\subsection{Research Questions}
+\begin{enumerate}[noitemsep,topsep=2pt]
+    \item Does known-model DP improve the goal-attainment and liquidity-risk frontier over a tuned fixed allocation rule?
+    \item When the cash-flow type is unknown, does Bayesian DP retain an advantage over a pooled policy using the same observations?
+    \item Does a recurrent Meta-RL policy adapt on held-out task dynamics well enough to outperform Bayesian DP, or is Meta-RL unnecessary for this problem?
+\end{enumerate}
+
+The contributions are an auditable small MDP, a matched comparison of sequential policies, and an explicit complexity gate for Meta-RL. The work does not propose a new Meta-RL algorithm or claim that a simulated improvement transfers automatically to K PLUS customers.

@@ -1,0 +1,50 @@
+\section{Solution Design}\label{sec:solution_design}
+
+\subsection{Decision Environment}
+At decision time $t$, the state is
+\[
+s_t=(t,w_t,r_t,g_t,d_t,y_t,f_t),
+\]
+where $w_t$ is liquid cash, $r_t$ is the reserve, $g_t$ is goal progress, $d_t$ is time to deadline, and $y_t,f_t$ are current salary and fixed obligation. The available surplus is $m_t=[w_t+y_t-f_t]_+$. The discrete action is $a_t=(e_t,q_t)$ with $e_t,q_t\geq0$ and $e_t+q_t\leq m_t$. Remaining surplus stays liquid.
+
+After the action, a variable expense $X_t$ is drawn from the hidden task type $\theta$. Liquid cash pays first; the reserve covers the remainder; any uncovered amount is a shortfall. The next state is
+\[
+w_{t+1}=[m_t-e_t-q_t-X_t]_+,\quad
+r_{t+1}=r_t+e_t-v_t,\quad
+g_{t+1}=g_t+q_t.
+\]
+The step reward combines covered essentials, shortfall cost, and useful reserve growth. Terminal reward records goal attainment, reserve attainment, and remaining liquid cash:
+\[
+J(\pi;\theta)=\mathbb{E}\left[\sum_{t=0}^{T-1}\rho_t+\rho_T\right].
+\]
+The probability of any shortfall is reported as a risk metric; its limit is tested by penalty and sensitivity sweeps rather than treated as an unsupported production guarantee.
+
+\subsection{Policy Comparison}
+Known-model DP computes the Bellman recursion
+\[
+V_t(s)=\max_{a\in A(s)}\mathbb{E}_{s'\sim P_\theta}[\rho(s,a,s')+V_{t+1}(s')].
+\]
+When $\theta$ is unknown, Bayesian DP maintains a belief $b_t(\theta)$ and uses the posterior-predictive transition. Pooled Q-learning tests model-free control without history inference. The recurrent Meta-RL policy is trained over task types and updates a hidden context from observed state, previous outcome, and reward:
+\[
+z_t=\operatorname{RNN}_\psi(z_{t-1},o_t),\qquad
+a_t\sim\pi_\phi(a_t\mid s_t,z_t).
+\]
+The task label is never passed to the recurrent policy. This is the proposed user-adaptation mechanism. The implementation is intentionally a small policy-gradient prototype; a recurrent PPO implementation is an optional extension, not a requirement for claiming a result.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\columnwidth]{trajectory_simulation.png}}
+\caption{Example matched cash-flow trajectories from the controlled simulator.}
+\label{fig:trajectory}
+\end{figure}
+
+\subsection{User Experience and Explainability}
+At payday, K PLUS can present one recommended allocation and a counterfactual: how the suggested amount changes goal progress, reserve coverage, and simulated shortfall risk. The user can edit or reject the recommendation. The prototype does not transfer funds. This intervention is deliberately small enough to validate as a single decision moment.
+
+\subsection{Track 2 Contribution}
+The technical contribution is the decision-making experiment: a common finite MDP, a model-based optimum, uncertainty-aware adaptation, and a falsifiable test of recurrent context. Adding Meta-RL without a held-out adaptation gain does not count as success. If Bayesian DP matches the recurrent policy, Bayesian DP is retained as the more interpretable Track 2 method.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\columnwidth]{safety_frontier.png}}
+\caption{Example reward versus shortfall-risk frontier used for policy comparison.}
+\label{fig:frontier}
+\end{figure}

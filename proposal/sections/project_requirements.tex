@@ -1,0 +1,24 @@
+\section{Project Requirements}\label{sec:project_requirements}
+
+\subsection{Functional Requirements}
+\begin{itemize}[noitemsep,topsep=2pt]
+    \item \textbf{FR1:} The simulator shall generate a seeded six-cycle trajectory with salary and expense outcomes for a declared hidden task type.
+    \item \textbf{FR2:} Each policy shall select only feasible discrete allocations satisfying $e_t+q_t\leq m_t$.
+    \item \textbf{FR3:} DP shall enumerate finite-support transitions and expose action values for inspection.
+    \item \textbf{FR4:} Bayesian DP shall update a posterior over task types from observed salary and expense outcomes.
+    \item \textbf{FR5:} Pooled RL and recurrent Meta-RL shall train on the same task distribution without receiving the task label at evaluation.
+    \item \textbf{FR6:} Evaluation shall run all policies on identical pre-generated paths and report reward, goal attainment, reserve attainment, shortfall probability, shortfall amount, and terminal liquidity.
+    \item \textbf{FR7:} The experiment shall include grid refinement, task-type ablations, history ablations, and at least one distribution shift.
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+\begin{itemize}[noitemsep,topsep=2pt]
+    \item \textbf{Reproducibility:} all random seeds, simulator parameters, action grids, and evaluation paths are recorded.
+    \item \textbf{Auditability:} DP transitions and policy actions can be inspected for a given state.
+    \item \textbf{Fairness of comparison:} methods share the same reward, feasibility rules, horizon, and observation budget.
+    \item \textbf{Scope control:} the core experiment runs locally with NumPy and does not require APIs, GPUs, or live customer data.
+    \item \textbf{Safety of communication:} outputs are recommendations for a simulator study and are not presented as guaranteed financial advice.
+\end{itemize}
+
+\subsection{Data Requirements and Strategy}
+The MVP requires synthetic initial balances, a fixed-obligation schedule, task-specific salary and expense distributions, one goal target and deadline, reward weights, and shared evaluation seeds. A later study could calibrate distributions using anonymized aggregate statistics, but raw transaction histories and customer identifiers are not required. The simulator and experiment outputs are versioned with the code so that a claimed improvement can be reproduced.
