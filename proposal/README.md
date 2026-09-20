@@ -18,5 +18,9 @@ research style of the template while mapping explicitly to the booklet's five
 pitch sections. It treats Meta-RL as an empirical candidate and retains
 Bayesian DP as the required simpler baseline.
 
+For the booklet submission, use `one_page_pitch.pdf`. Its source is
+`one_page_pitch.tex` and it contains the five required sections directly on a
+single page.
+
 The figures in `img/` are generated experiment artifacts. They contain only
 synthetic simulation results and do not represent K PLUS customer data.
