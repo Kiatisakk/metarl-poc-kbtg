@@ -42,7 +42,7 @@ runtime grows substantially.
 - `tests/`: unit and integration checks
 - `EXPERIMENT_PROPOSAL.md`: mathematical formulation and research protocol
 - `ONE_PAGE_PITCH_PROPOSAL.md`: the five required booklet sections in pitch form
-- `proposal/`: IEEE-style research proposal and one-page PDF pitch adapted from the public hackathon template
+- `proposal/`: IEEE-style research proposal and booklet pitch PDF adapted from the public hackathon template
 - `ref/`: research papers and source materials used by the proposal
 
 The main research decision is whether Meta-RL improves held-out adaptation

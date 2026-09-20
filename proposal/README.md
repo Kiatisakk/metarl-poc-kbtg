@@ -19,8 +19,9 @@ pitch sections. It treats Meta-RL as an empirical candidate and retains
 Bayesian DP as the required simpler baseline.
 
 For the booklet submission, use `one_page_pitch.pdf`. Its source is
-`one_page_pitch.tex` and it contains the five required sections directly on a
-single page.
+`one_page_pitch.tex` and it uses the same IEEE-style format as `proposal.tex`,
+with the five required sections and the Meta-RL logical flowchart. The figure
+may make the draft span more than one page while the layout is being refined.
 
 The trajectory and frontier figures in `img/` are generated experiment
 artifacts containing only synthetic simulation results. The

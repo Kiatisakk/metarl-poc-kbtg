@@ -1,74 +1,100 @@
-\documentclass[10pt]{article}
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
 
-\usepackage[margin=0.52in]{geometry}
-\usepackage[OT1]{fontenc}
-\usepackage{lmodern}
-\usepackage{multicol}
-\usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage{array}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{enumitem}
 \usepackage{hyperref}
 
-\definecolor{navy}{HTML}{17324D}
-\definecolor{teal}{HTML}{087E8B}
-\hypersetup{colorlinks=true,urlcolor=teal,linkcolor=teal}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{2pt}
-\setlength{\columnsep}{0.24in}
-\setlist{nosep,leftmargin=*}
-\pagestyle{empty}
-
-\newcommand{\pitchsection}[1]{%
-  \vspace{4pt}%
-  {\color{navy}\bfseries\large #1}\par\vspace{1pt}%
-  \hrule height 0.5pt\vspace{2pt}%
-}
+\graphicspath{{img/}}
 
 \begin{document}
 
-\begin{center}
-{\color{navy}\LARGE\bfseries K PLUS Adaptive Goal Allocation}\par
-\vspace{2pt}
-{\large\bfseries for First Jobbers}\par
-\vspace{3pt}
-{\color{teal}\small History-aware payday cash allocation under uncertain cash flows}\par
-\vspace{3pt}
-{\footnotesize K PLUS First Jobber Hackathon --- Track 2: Data Science \& Intelligence}
-\end{center}
+\title{K PLUS Adaptive Goal Allocation for First Jobbers\\
+{\footnotesize K PLUS First Jobber Hackathon --- Track 2: Data Science \& Intelligence}}
 
-\small
-\begin{multicols}{2}
+\author{}
 
-\pitchsection{1. Problem Statement}
-First Jobbers often have a regular salary but little margin after essential obligations. At each payday they must divide limited surplus between immediate liquidity, an emergency buffer, and one short-term goal. The next variable expense is unknown, so a fixed saving percentage can leave too little cash for an essential shock or delay the goal unnecessarily.
+\maketitle
 
-The failure point is the payday allocation decision. Money placed in the goal or reserve changes what remains available in every later cycle. Existing budgeting tools can show balances or apply fixed rules, but they do not evaluate this sequential liquidity trade-off. The prevalence of this problem among K PLUS users is a validation hypothesis; this proposal makes no population claim.
+\section{Problem Statement}
+First Jobbers with a regular salary often have limited surplus after essential
+obligations. At each payday they must divide that surplus between immediate
+liquidity, an emergency buffer, and a short-term personal goal. Future
+expenses may be uncertain, so a fixed saving percentage can leave too little
+cash for an essential shock or delay the goal unnecessarily.
 
-\pitchsection{2. Proposed Solution}
-K PLUS Adaptive Goal Allocation gives an optional recommendation when salary arrives. It uses the current wallet, emergency reserve, goal progress, salary, obligations, and recent cash-flow history to recommend a feasible allocation:
-\begin{itemize}
-  \item amount added to the emergency buffer;
-  \item amount added to one optional savings goal;
-  \item remaining surplus kept liquid.
+The specific failure point is the payday allocation decision: the user must
+choose an amount before knowing the next variable expense. The choice affects
+every later cycle because money placed in the goal or reserve is no longer
+immediately liquid. Existing budgeting tools can show balances or apply fixed
+rules, but they do not evaluate this sequential trade-off. The prevalence of
+this problem among K PLUS users is a validation hypothesis; the prototype
+makes no population claim.
+
+\section{Proposed Solution}
+K PLUS Adaptive Goal Allocation provides an optional recommendation at the
+payday moment. It observes the current wallet, reserve, goal progress, salary,
+obligations, and recent cash-flow history. It recommends a feasible allocation:
+\begin{itemize}[noitemsep,topsep=1pt,leftmargin=*]
+    \item an amount to add to the emergency buffer;
+    \item an amount to add to one optional savings goal; and
+    \item the remaining surplus kept liquid.
 \end{itemize}
-The user sees a short explanation and a counterfactual, such as how allocating more to the goal changes simulated shortfall risk. The prototype evaluates six pay cycles with synthetic cash-flow types. It does not move or lock real funds and does not require production K PLUS data.
+The recommendation includes a short explanation and a counterfactual, such as
+how allocating more to the goal changes simulated shortfall risk. The core
+experiment models six pay cycles with synthetic cash-flow types. It compares
+fixed rules, Dynamic Programming, Bayesian adaptive DP, pooled RL, and a
+recurrent Meta-RL policy. The system does not move real funds or connect to
+production K PLUS data.
 
-\pitchsection{3. Target Users}
-Salaried K PLUS users aged 22--30 who have a small liquid buffer, regular essential obligations, and one short-term savings goal. The focused hypothesis is that these users face different degrees of expense volatility and need help choosing an allocation at the payday moment. The prototype treats these as experimental segments, not measured Thai population categories.
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{logical_workflow.png}
+    \caption{Logical flowchart MetaRL for adaptive financial goal allocation.}
+    \label{fig:logical-flowchart}
+\end{figure*}
 
-\pitchsection{4. Value Proposition}
-\textbf{For First Jobbers:} The user receives a risk-aware allocation instead of the same percentage every month. The explanation makes the reserve-versus-goal trade-off visible, and the user can accept, edit, or reject the suggestion.
+\section{Target Users}
+The initial target segment is salaried K PLUS users aged 22--30 who:
+\begin{itemize}[noitemsep,topsep=1pt,leftmargin=*]
+    \item have a small liquid buffer;
+    \item face regular essential obligations;
+    \item are building one short-term savings goal; and
+    \item may experience different levels of expense volatility.
+\end{itemize}
+These are a focused validation hypothesis rather than a claim that every First
+Jobber has the same financial situation.
 
-\textbf{For K PLUS/KBank:} The concept creates a small, auditable personalization use case around an existing salary and savings context. It can test whether sequential decision support improves simulated goal progress and liquidity outcomes before requesting real-money movement or raw customer histories. Retention, deposits, debt reduction, and real customer impact remain future validation questions.
+\section{Value Proposition}
+\textbf{For First Jobbers:} The user receives a decision that accounts for
+future uncertainty instead of applying the same percentage every month. The
+explanation makes the liquidity-versus-goal trade-off easier to understand,
+and the user retains control over the final action.
 
-\pitchsection{5. Track Perspective}
-This is a finite-horizon Markov Decision Process. The state contains time, wallet, reserve, goal progress, deadline, salary, and fixed obligations. The action is the pair $(e_t,q_t)$ of reserve and goal allocations subject to $e_t+q_t\leq m_t$. Salary and expense outcomes create stochastic transitions; reward combines expense coverage, shortfall penalty, reserve progress, goal attainment, and terminal liquidity.
+\textbf{For K PLUS/KBank:} K PLUS gains a small, auditable personalization use
+case that can be prototyped without moving money or accessing raw customer
+histories. It can test whether sequential decision support improves simulated
+goal and liquidity outcomes, and whether users understand the recommendation.
+Retention, deposits, debt reduction, and real customer impact require later
+validation.
 
-The experiment progresses from a fixed heuristic to known-model Dynamic Programming, Bayesian adaptive DP, pooled RL, and recurrent Meta-RL. DP supplies an interpretable benchmark; Bayesian DP is the strong low-complexity adaptation baseline. Meta-RL is retained only if it adapts on held-out cash-flow dynamics and outperforms Bayesian DP under matched observations. Otherwise, the simpler method becomes the final Track 2 result.
+\section{Track Perspective}
+The problem is a finite-horizon Markov Decision Process. The state contains
+time, wallet, reserve, goal progress, deadline, current salary, and fixed
+obligations. The action is the pair of reserve and goal allocations subject to
+a cash-feasibility constraint. Salary and expense outcomes create stochastic
+transitions; rewards combine expense coverage, shortfall penalties, reserve
+progress, goal attainment, and terminal liquidity.
 
-\vfill
-{\footnotesize\textbf{Core scope:} one payday decision, one reserve, one goal, six cycles. No investment portfolio, fraud detection, automatic transfers, or production banking integration.}
+The project progresses from a transparent heuristic to known-model DP,
+Bayesian DP, pooled RL, and recurrent Meta-RL. DP supplies an interpretable
+benchmark. Bayesian DP is the strong low-complexity adaptation baseline. Meta-RL
+is accepted only if it adapts on held-out cash-flow dynamics and outperforms
+Bayesian DP under matched observations; otherwise the simpler method is
+retained.
 
-\end{multicols}
 \end{document}
